@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "goodreads": "^0.1.0",
-    "goodreads-api-node": "^0.0.9",
-    "xml2js": "^0.4.19"
-  }
-}
