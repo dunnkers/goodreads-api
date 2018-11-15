@@ -54,6 +54,7 @@ PLATFORMS
 DEPENDENCIES
   goodreads
   json
+  rack
   sinatra
 
 RUBY VERSION

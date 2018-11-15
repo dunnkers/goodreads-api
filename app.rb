@@ -1,4 +1,4 @@
-require 'Goodreads'
+require 'goodreads'
 require 'json'
 require 'sinatra'
 
