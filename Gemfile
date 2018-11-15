@@ -5,3 +5,4 @@ ruby '2.5.3'
 
 gem 'goodreads'
 gem 'sinatra'
+gem 'json'

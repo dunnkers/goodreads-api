@@ -1,4 +1,6 @@
 require 'Goodreads'
+require 'json'
+require 'sinatra'
 
 client = Goodreads::Client.new(
     api_key: "GbOjze9tMkWgYYTuKHrDtA",
@@ -6,19 +8,14 @@ client = Goodreads::Client.new(
     )
 
 user_id = 88771324
-shelf_name = "currently-reading"
-shelf = client.shelf(user_id, shelf_name)
-
-for book in shelf.books do
-    print book.book.title + "\n"
-end
-
-
-
-
-require 'sinatra'
+read = client.shelf(user_id, "read")
+current = client.shelf(user_id, "currently-reading")
  
 get '/' do
     content_type :json
-    'gozer'
+    shelves = {
+        "read" => read,
+        "current" => current
+    }
+    JSON.generate(shelves)
 end
