@@ -17,5 +17,6 @@ get '/' do
         "read" => read,
         "current" => current
     }
+    response['Access-Control-Allow-Origin'] = '*'
     JSON.generate(shelves)
 end
