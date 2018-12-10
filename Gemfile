@@ -7,3 +7,4 @@ gem 'rack'
 gem 'goodreads'
 gem 'sinatra'
 gem 'json'
+gem "nokogiri", "~> 1.8"
