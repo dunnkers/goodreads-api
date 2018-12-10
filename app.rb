@@ -30,12 +30,13 @@ def grabBookCover(book)
     end
 end
 
-get '/' do
-    read = client.shelf(user_id, "read")
-    read.books = read.books.map { |book| grabBookCover(book) }
-    current = client.shelf(user_id, "currently-reading")
-    current.books = current.books.map { |book| grabBookCover(book) }
+# prefetch data
+read = client.shelf(user_id, "read")
+read.books = read.books.map { |book| grabBookCover(book) }
+current = client.shelf(user_id, "currently-reading")
+current.books = current.books.map { |book| grabBookCover(book) }
 
+get '/' do
     content_type :json
     shelves = {
         "read" => read,
