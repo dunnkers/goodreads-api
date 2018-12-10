@@ -14,11 +14,20 @@ user_id = 88771324
 def grabBookCover(book)
     doc = Nokogiri::HTML(open(book.book.link))
     coverButton = doc.css('.coverButtonContainer .coverButton.enlargeCover')[0]
-    imageSelector = "#" + coverButton["id"] + "_cover > img"
-    image = doc.css(imageSelector)[0]
-    imagePath = image["src"]
-    book.book.image_url = imagePath
-    return book
+    if !coverButton # no cover at all
+        return book;
+    else
+        imageSelector = "#" + coverButton["id"] + "_cover > img"
+        image = doc.css(imageSelector)[0]
+        if !image # that'd be weird, but checking just to be safe.
+            return book
+        else
+            imagePath = image["src"]
+            book.book.image_url = imagePath
+            puts "Grabbed " + imagePath
+            return book
+        end
+    end
 end
 
 get '/' do
