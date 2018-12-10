@@ -8,10 +8,18 @@ client = Goodreads::Client.new(
     )
 
 user_id = 88771324
-read = client.shelf(user_id, "read")
-current = client.shelf(user_id, "currently-reading")
- 
+
+def grabBookCover(book)
+    book.book.image_url = "https://images.gr-assets.com/books/1492533321l/34878094.jpg"
+    return book
+end
+
 get '/' do
+    read = client.shelf(user_id, "read")
+    read.books = read.books.map { |book| grabBookCover(book) }
+    current = client.shelf(user_id, "currently-reading")
+    current.books = current.books.map { |book| grabBookCover(book) }
+
     content_type :json
     shelves = {
         "read" => read,
