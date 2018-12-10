@@ -1,6 +1,8 @@
 require 'goodreads'
 require 'json'
 require 'sinatra'
+require 'nokogiri'
+require 'open-uri'
 
 client = Goodreads::Client.new(
     api_key: "GbOjze9tMkWgYYTuKHrDtA",
@@ -10,7 +12,12 @@ client = Goodreads::Client.new(
 user_id = 88771324
 
 def grabBookCover(book)
-    book.book.image_url = "https://images.gr-assets.com/books/1492533321l/34878094.jpg"
+    doc = Nokogiri::HTML(open(book.book.link))
+    coverButton = doc.css('.coverButtonContainer .coverButton.enlargeCover')[0]
+    imageSelector = "#" + coverButton["id"] + "_cover > img"
+    image = doc.css(imageSelector)[0]
+    imagePath = image["src"]
+    book.book.image_url = imagePath
     return book
 end
 
