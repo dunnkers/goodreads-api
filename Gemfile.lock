@@ -60,6 +60,7 @@ DEPENDENCIES
   goodreads
   json
   nokogiri (~> 1.8)
+  rack
   rake (~> 12.3)
   redis (~> 4.1)
   sinatra
