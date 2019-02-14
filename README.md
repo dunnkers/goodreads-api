@@ -1,24 +1,34 @@
-# README
+# goodreads-api ✨
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Tiny ruby server that exposes your Goodreads shelves with proper cover images. This is useful when creating a digital shelf for example.
 
-Things you may want to cover:
+## Requirements
 
-* Ruby version
+- Ruby
+- Redis
 
-* System dependencies
+## Usage
 
-* Configuration
+Configure your 
 
-* Database creation
+To start the Sinatra server:
 
-* Database initialization
+```shell
+ruby app.rb
+```
 
-* How to run the test suite
+To force re-grabbing the cover images:
 
-* Services (job queues, cache servers, search engines, etc.)
+```shell
+rake fetch
+```
 
-* Deployment instructions
+Make sure Redis is running.
 
-* ...
+## Architecture
+
+Links to cover images are found by crawling each book Goodreads page and processing it with nokogiri. These links are then stored in a Redis db and are then retrieved again by the server.
+
+## About
+
+Built by [dunnkers](https://github.com/dunnkers) ⚡️
