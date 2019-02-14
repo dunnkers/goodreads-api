@@ -9,7 +9,13 @@ Tiny ruby server that exposes your Goodreads shelves with proper cover images. T
 
 ## Usage
 
-Configure your 
+Configure two environment variables:
+
+```shell
+export GOODREADS_API_KEY=<your_api_key>
+export GOODREADS_USER_ID=<your_user_id>
+```
+Get an api key [here](https://www.goodreads.com/api/keys). User id is visible in your profile link.
 
 To start the Sinatra server:
 
