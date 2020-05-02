@@ -7,6 +7,6 @@ gem 'rack'
 gem 'goodreads'
 gem 'sinatra'
 gem 'json'
-gem "nokogiri", "~> 1.8"
+gem "nokogiri", "~> 1.10"
 gem "redis", "~> 4.1"
 gem "rake", "~> 12.3"
