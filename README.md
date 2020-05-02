@@ -2,6 +2,10 @@
 
 Tiny ruby server that exposes your Goodreads shelves with proper cover images. This is useful when creating a digital shelf for example.
 
+![Screenshot 2020-05-02 at 13 42 43](https://user-images.githubusercontent.com/744430/80863557-93ff3c80-8c7d-11ea-9453-0c832e96842d.png)
+
+Digital shelf. This server can be used as an API for your digital [reading shelf frontend](https://github.com/dunnkers/dunnkers.github.io/tree/reading-shelf).
+
 ## Requirements
 
 - Ruby
