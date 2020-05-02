@@ -58,7 +58,7 @@ def fetchShelves
         # -> if more than 200, will need to resort to: `page` option
     }
 
-    read = $client.shelf(GOODREADS_USER_ID, "read", { per_page : 200 })
+    read = $client.shelf(GOODREADS_USER_ID, "read", read_options)
     read.books = read.books.map { |book| fixBookCover(book) }
     current = $client.shelf(GOODREADS_USER_ID, "currently-reading")
     current.books = current.books.map { |book| fixBookCover(book) }
@@ -70,3 +70,4 @@ def fetchShelves
     $redis.set('shelves', JSON.generate(shelves))
     return shelves
 end
+fetchShelves()
