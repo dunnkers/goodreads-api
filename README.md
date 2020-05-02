@@ -9,7 +9,7 @@ Tiny ruby server that exposes your Goodreads shelves with proper cover images. T
 
 ## Usage
 
-Configure two environment variables:
+1. Configure two environment variables:
 
 ```shell
 export GOODREADS_API_KEY=<your_api_key>
@@ -17,7 +17,7 @@ export GOODREADS_USER_ID=<your_user_id>
 ```
 Get an api key [here](https://www.goodreads.com/api/keys). User id is visible in your profile link.
 
-Install dependencies:
+2. Install dependencies:
 
 ```shell
 bundle install
@@ -25,13 +25,22 @@ bundle install
 
 (make sure Gemfile and system Ruby versions match)
 
-To start the Sinatra server:
+3. Run redis
+Make sure Redis is running.
+
+e.g. MacOS:
+```shell
+brew install redis
+redis-server
+```
+
+4. Start the Sinatra server:
 
 ```shell
 ruby app.rb
 ```
 
-Visit [http://localhost:4567/](http://localhost:4567/)! 💎
+Visit [http://localhost:4567/](http://localhost:4567/) 💎
 
 To force re-grabbing the cover images:
 
@@ -39,11 +48,15 @@ To force re-grabbing the cover images:
 rake fetch
 ```
 
-Make sure Redis is running.
-
 ## Architecture
 
 Links to cover images are found by crawling each book Goodreads page and processing it with nokogiri. These links are then stored in a Redis db and are then retrieved again by the server.
+
+## Deployment
+
+You can deploy easily on any platform desired - just setup a Ruby environment and make sure a Redis instance is running in the network. Its connection parameters are at default. Also make sure to set the environment variables. Feel free to build a Dockerfile with the required setup.
+
+Out of the box, however, Heroku deployment works well. Just launch an app with the heroku/ruby buildpack, and install the Heroku Redis add-on. You can use Heroku Scheduler to periodically fetch new data; configure the job to execute `rake fetch`. Cheers!
 
 ## About
 
