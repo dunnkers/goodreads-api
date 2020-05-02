@@ -17,11 +17,21 @@ export GOODREADS_USER_ID=<your_user_id>
 ```
 Get an api key [here](https://www.goodreads.com/api/keys). User id is visible in your profile link.
 
+Install dependencies:
+
+```shell
+bundle install
+```
+
+(make sure Gemfile and system Ruby versions match)
+
 To start the Sinatra server:
 
 ```shell
 ruby app.rb
 ```
+
+Visit [localhost:4567](localhost:4567)! 💎
 
 To force re-grabbing the cover images:
 
