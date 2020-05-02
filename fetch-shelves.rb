@@ -52,7 +52,13 @@ def fixBookCover(book)
 end
 
 def fetchShelves
-    read = $client.shelf(GOODREADS_USER_ID, "read")
+    read_options = { # See https://www.goodreads.com/api/index#reviews.list
+        sort: 'date_read',
+        per_page: 200, # max amount that goodreads lets us fetch.
+        # -> if more than 200, will need to resort to: `page` option
+    }
+
+    read = $client.shelf(GOODREADS_USER_ID, "read", { per_page : 200 })
     read.books = read.books.map { |book| fixBookCover(book) }
     current = $client.shelf(GOODREADS_USER_ID, "currently-reading")
     current.books = current.books.map { |book| fixBookCover(book) }
