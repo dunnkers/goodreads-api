@@ -31,7 +31,7 @@ To start the Sinatra server:
 ruby app.rb
 ```
 
-Visit [localhost:4567](localhost:4567)! 💎
+Visit [http://localhost:4567/](http://localhost:4567/)! 💎
 
 To force re-grabbing the cover images:
 
