@@ -56,6 +56,23 @@ rake fetch
 
 Links to cover images are found by crawling each book Goodreads page and processing it with nokogiri. These links are then stored in a Redis db and are then retrieved again by the server.
 
+### Development
+To debug, use the VSCode Ruby extension to configure a `launch.json` file in `/.vscode`. Make sure to add the environment variables to your configuration:
+
+```json
+"configurations": [
+    {
+        ...
+        "env": {
+            "GOODREADS_API_KEY": "<your_api_key>",
+            "GOODREADS_USER_ID": "<your_user_id>"
+        }
+    }
+]
+```
+
+Set `launch.json` to execute `app.rb` to debug the server, or `fetch-shelves.rb` to debug the functions. To debug `fetch-shelves.rb`, add a line at the end of the file, executing one of the functions.
+
 ## Deployment
 
 You can deploy easily on any platform desired - just setup a Ruby environment and make sure a Redis instance is running in the network. Its connection parameters are at default. Also make sure to set the environment variables. Feel free to build a Dockerfile with the required setup.
