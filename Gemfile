@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.10'
 
+gem "google-cloud-firestore", "~> 2.0"
 gem "functions_framework", "~> 1.0"
 gem 'rack'
 gem 'goodreads'

@@ -1,7 +1,23 @@
 require "functions_framework"
+require "google/cloud/firestore"
+
+firestore = Google::Cloud::Firestore.new
 
 FunctionsFramework.http("hello") do |request|
   "Hello, world!\n"
+
+  doc_ref = firestore.doc "people/alovelace"
+
+    doc_ref.set(
+    {
+        first: "Ada",
+        last:  "Lovelace",
+        born:  1815
+    }
+    )
+
+    puts "Added data to the alovelace document in the users collection."
+
 end
 
 
