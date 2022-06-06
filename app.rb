@@ -2,7 +2,7 @@ require "functions_framework"
 require_relative 'fetch-shelves'
 
 FunctionsFramework.http("hello") do |request|
-    fetchShelves()    
+    fetchShelvesOrUseCache()    
 end
 
 

@@ -1,0 +1,18 @@
+{
+    "name": "Ruby 2.6 devcontainer",
+    "image": "mcr.microsoft.com/vscode/devcontainers/ruby:2.6",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"rebornix.Ruby"
+			]
+		}
+	},
+	"remoteUser": "vscode",
+	"containerEnv": {
+		"GOODREADS_API_KEY": "${localEnv:GOODREADS_API_KEY}",
+		"GOODREADS_USER_ID": "${localEnv:GOODREADS_USER_ID}",
+		"GOOGLE_AUTH_SUPPRESS_CREDENTIALS_WARNINGS": "true",
+	},
+	"postCreateCommand": "sh .devcontainer/postCreateCommand.sh"
+}
