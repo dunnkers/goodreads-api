@@ -5,17 +5,25 @@ firestore = Google::Cloud::Firestore.new
 
 FunctionsFramework.http("hello") do |request|
 
-  doc_ref = firestore.doc "people/alovelace"
+    doc_ref = firestore.doc "people/alovelace"
 
-    doc_ref.set(
-        {
-            first: "Ada",
-            last:  "Lovelace",
-            born:  1815
-        }
-    )
+    snapshot = doc_ref.get
+    if snapshot.exists?
+        puts "#{snapshot.document_id} data: #{snapshot.data}."
+    else
+        puts "Document #{snapshot.document_id} does not exist!"
+        doc_ref.set(
+            {
+                first: "Ada",
+                last:  "Lovelace",
+                born:  1815
+            }
+        )
 
-    puts "Added data to the alovelace document in the users collection."
+        puts "Added data to the alovelace document in the users collection."
+    end
+
+
 
     "Hello, world!\n"
 end
