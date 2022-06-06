@@ -7,7 +7,8 @@ end
 
 FunctionsFramework.http("get-shelves") do |request|
     puts request.params
-    bust = request.params["bust"] rescue false
+    bust_str = request.params["bust"] rescue "false"
+    bust = bust_str == "true"
     return fetchShelvesOrUseCache(bust: bust)
 end
 
