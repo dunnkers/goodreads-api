@@ -1,8 +1,9 @@
 require 'goodreads'
 require 'nokogiri'
 require 'open-uri'
-require 'redis'
+# require 'redis'
 require 'json'
+require "google/cloud/firestore"
 
 GOODREADS_API_KEY = ENV["GOODREADS_API_KEY"]
 GOODREADS_USER_ID = ENV["GOODREADS_USER_ID"]
@@ -15,7 +16,7 @@ if not GOODREADS_USER_ID
     abort "Error: Environment variable `GOODREADS_USER_ID` not set."
 end
 
-$redis = Redis.new
+firestore = Google::Cloud::Firestore.new
 $client = Goodreads::Client.new(api_key: GOODREADS_API_KEY)
 
 def grabBookCover(bookLink)
@@ -30,22 +31,24 @@ def grabBookCover(bookLink)
 end
 
 def fixBookCover(book)
-    coverImagePath = $redis.get("cover_#{book.id}")
+    cover_doc = firestore.doc "covers/#{book.id}"
+    cover_snapshot = cover_doc.get
 
     # previously grabbed this cover
-    if coverImagePath
-        book.book.image_url = coverImagePath
-        puts "From Redis store: #{coverImagePath}"
+    if cover_snapshot.exists?
+        image_url = cover_snapshot.data[:image_url]
+        book.book.image_url = image_url
+        puts "From Firestore: #{image_url}"
         return book
     end
 
     # grab cover
-    coverImage = grabBookCover(book.book.link)
-    if coverImage
-        imagePath = coverImage["src"]
-        book.book.image_url = imagePath
-        $redis.set("cover_#{book.id}", imagePath)
-        puts "Grabbed: #{imagePath}"
+    bookCover = grabBookCover(book.book.link)
+    if bookCover
+        image_url = bookCover["src"]
+        book.book.image_url = image_url
+        cover_doc.set({ image_url: image_url })
+        puts "Grabbed: #{image_url}"
     end
 
     return book
@@ -67,7 +70,23 @@ def fetchShelves
         "current" => current
     }
 
-    $redis.set('shelves', JSON.generate(shelves))
     return shelves
 end
-fetchShelves()
+
+
+def fetchShelvesOrUseCache(bust: false)
+    shelves_doc = firestore.doc "shelves/goodreads_shelf_cache"
+    shelves_snapshot = shelves_doc.get
+
+    # use cache if exists
+    if shelves_snapshot.exists? || bust
+        shelves = shelves_snapshot.data
+        return shelves
+    # otherwise fetch
+    else
+        shelves = fetchShelves()
+        shelves_doc.set(shelves)
+        return shelves
+end
+
+fetchShelvesOrUseCache(bust: true)
