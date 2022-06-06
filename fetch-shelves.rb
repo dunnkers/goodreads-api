@@ -1,8 +1,6 @@
 require 'goodreads'
 require 'nokogiri'
 require 'open-uri'
-# require 'redis'
-# require 'json'
 require "google/cloud/firestore"
 
 GOODREADS_API_KEY = ENV["GOODREADS_API_KEY"]
@@ -79,7 +77,7 @@ def fetchShelvesOrUseCache(bust: false)
     shelves_snapshot = shelves_doc.get
 
     # use cache if exists
-    if shelves_snapshot.exists? || bust
+    if shelves_snapshot.exists? && !bust
         puts "Using shelves from cache..."
         starting = Time.now
         shelves = shelves_snapshot.data
