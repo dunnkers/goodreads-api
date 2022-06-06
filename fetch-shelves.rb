@@ -2,7 +2,7 @@ require 'goodreads'
 require 'nokogiri'
 require 'open-uri'
 # require 'redis'
-require 'json'
+# require 'json'
 require "google/cloud/firestore"
 
 GOODREADS_API_KEY = ENV["GOODREADS_API_KEY"]
@@ -16,7 +16,7 @@ if not GOODREADS_USER_ID
     abort "Error: Environment variable `GOODREADS_USER_ID` not set."
 end
 
-firestore = Google::Cloud::Firestore.new
+$firestore = Google::Cloud::Firestore.new(project_id: "dunnkers-bookshelf")
 $client = Goodreads::Client.new(api_key: GOODREADS_API_KEY)
 
 def grabBookCover(bookLink)
@@ -31,7 +31,7 @@ def grabBookCover(bookLink)
 end
 
 def fixBookCover(book)
-    cover_doc = firestore.doc "covers/#{book.id}"
+    cover_doc = $firestore.doc "covers/#{book.id}"
     cover_snapshot = cover_doc.get
 
     # previously grabbed this cover
@@ -75,7 +75,7 @@ end
 
 
 def fetchShelvesOrUseCache(bust: false)
-    shelves_doc = firestore.doc "shelves/goodreads_shelf_cache"
+    shelves_doc = $firestore.doc "shelves/goodreads_shelf_cache"
     shelves_snapshot = shelves_doc.get
 
     # use cache if exists
@@ -87,6 +87,7 @@ def fetchShelvesOrUseCache(bust: false)
         shelves = fetchShelves()
         shelves_doc.set(shelves)
         return shelves
+    end
 end
 
 fetchShelvesOrUseCache(bust: true)
