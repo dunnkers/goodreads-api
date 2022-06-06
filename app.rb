@@ -1,28 +1,16 @@
 require "functions_framework"
-require_relative 'fetch-shelves'
 
-FunctionsFramework.http("hello") do |request|
-    fetchShelvesOrUseCache()    
+FunctionsFramework.on_startup do
+    require_relative "lib/fetch_shelves"
+    fetchShelvesOrUseCache()
+end
+
+FunctionsFramework.http("get-shelves") do |request|
+    return fetchShelvesOrUseCache()
 end
 
 
-# require 'json'
-# require 'sinatra'
-# require 'redis'
-# require_relative 'fetch-shelves'
-
-# $redis = Redis.new
-
-# get '/' do
-#     content_type :json
-#     response['Access-Control-Allow-Origin'] = '*'
-
-#     shelves = $redis.get('shelves') # stored in JSON
-#     return shelves ? shelves : JSON.generate(fetchShelves())
-# end
-
-# get '/force-update' do
-#     content_type :json
-#     response['Access-Control-Allow-Origin'] = '*'
-#     return JSON.generate(fetchShelves())
-# end
+FunctionsFramework.cloud_event "hello_pubsub" do |event|
+  name = Base64.decode64 event.data["message"]["data"] rescue "no data"
+  logger.info "Hello, #{name}!"
+end

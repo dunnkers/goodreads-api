@@ -93,5 +93,3 @@ def fetchShelvesOrUseCache(bust: false)
         return shelves
     end
 end
-
-fetchShelvesOrUseCache(bust: true)

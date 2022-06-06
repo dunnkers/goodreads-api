@@ -9,3 +9,13 @@ steps:
   - --source=.
   - --trigger-http
   - --runtime=ruby26
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  args:
+  - gcloud
+  - functions
+  - deploy
+  - goodreads-api-fetch-shelves
+  - --region=europe-west1
+  - --source=.
+  - --trigger-topic=execute-fetch-shelves
+  - --runtime=ruby26
