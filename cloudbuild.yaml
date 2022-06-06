@@ -6,18 +6,20 @@ steps:
   - deploy
   - goodreads-api
   - --entry-point=get-shelves
+  - --trigger-http
   - --region=europe-west1
   - --source=.
-  - --trigger-http
   - --runtime=ruby26
+  waitFor: ['-']
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   args:
   - gcloud
   - functions
   - deploy
   - goodreads-api-fetch-shelves
-  - --entry-point=hello_pubsub
+  - --entry-point=force-get-shelves
+  - --trigger-topic=execute-fetch-shelves
   - --region=europe-west1
   - --source=.
-  - --trigger-topic=execute-fetch-shelves
   - --runtime=ruby26
+  waitFor: ['-']

@@ -12,7 +12,7 @@
 	"containerEnv": {
 		"GOODREADS_API_KEY": "${localEnv:GOODREADS_API_KEY}",
 		"GOODREADS_USER_ID": "${localEnv:GOODREADS_USER_ID}",
-		"GOOGLE_AUTH_SUPPRESS_CREDENTIALS_WARNINGS": "true",
+		"GOOGLE_AUTH_SUPPRESS_CREDENTIALS_WARNINGS": "true"
 	},
 	"postCreateCommand": "sh .devcontainer/postCreateCommand.sh"
 }

@@ -10,7 +10,7 @@ FunctionsFramework.http("get-shelves") do |request|
 end
 
 
-FunctionsFramework.cloud_event "hello_pubsub" do |event|
+FunctionsFramework.cloud_event "force-get-shelves" do |event|
   name = Base64.decode64 event.data["message"]["data"] rescue "no data"
   logger.info "Hello, #{name}!"
 end
