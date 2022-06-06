@@ -5,6 +5,7 @@ steps:
   - functions
   - deploy
   - goodreads-api
+  - --entry-point=get-shelves
   - --region=europe-west1
   - --source=.
   - --trigger-http
@@ -15,6 +16,7 @@ steps:
   - functions
   - deploy
   - goodreads-api-fetch-shelves
+  - --entry-point=hello_pubsub
   - --region=europe-west1
   - --source=.
   - --trigger-topic=execute-fetch-shelves
