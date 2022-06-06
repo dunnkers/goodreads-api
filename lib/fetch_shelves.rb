@@ -79,11 +79,7 @@ def fetchShelvesOrUseCache(bust: false)
     # use cache if exists
     if shelves_snapshot.exists? && !bust
         puts "Using shelves from cache..."
-        starting = Time.now
         shelves = shelves_snapshot.data
-        ending = Time.now
-        elapsed = ending - starting
-        puts "✓ retrieved shelves from Firestore in #{elapsed} seconds"
         return shelves
     # otherwise fetch
     else

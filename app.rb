@@ -6,11 +6,16 @@ FunctionsFramework.on_startup do
 end
 
 FunctionsFramework.http("get-shelves") do |request|
-    return fetchShelvesOrUseCache()
+    puts request.params
+    bust = request.params["bust"] rescue false
+    return fetchShelvesOrUseCache(bust: bust)
 end
 
-
 FunctionsFramework.cloud_event "force-get-shelves" do |event|
-  name = Base64.decode64 event.data["message"]["data"] rescue "no data"
-  logger.info "Hello, #{name}!"
+    require "JSON"
+    message_json = Base64.decode64 event.data["message"]["data"]
+    message_hash = JSON.parse(message_json)
+    bust = message_hash["bust"]
+    logger.info "Busting shelves cache, triggered by pub/sub cloud event."
+    fetchShelvesOrUseCache(bust: bust)
 end
