@@ -1,0 +1,11 @@
+steps:
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  args:
+  - gcloud
+  - functions
+  - deploy
+  - goodreads-api
+  - --region=europe-west1
+  - --source=.
+  - --trigger-http
+  - --runtime=ruby26
