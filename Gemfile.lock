@@ -99,6 +99,8 @@ GEM
     minitest (5.15.0)
     multi_json (1.15.0)
     multipart-post (2.2.0)
+    mustermann (1.1.1)
+      ruby2_keywords (~> 0.0.1)
     netrc (0.11.0)
     nio4r (2.5.8)
     nokogiri (1.11.7)
@@ -111,6 +113,8 @@ GEM
       nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.3.1)
+    rack-protection (2.2.0)
+      rack
     rbtree (0.4.5)
     rest-client (2.1.0)
       http-accept (>= 1.7.0, < 2.0)
@@ -123,6 +127,12 @@ GEM
       faraday (>= 0.17.5, < 3.0)
       jwt (>= 1.5, < 3.0)
       multi_json (~> 1.10)
+    sinatra (2.2.0)
+      mustermann (~> 1.0)
+      rack (~> 2.2)
+      rack-protection (= 2.2.0)
+      tilt (~> 2.0)
+    tilt (2.0.10)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unf (0.1.4)
@@ -138,6 +148,7 @@ DEPENDENCIES
   goodreads (~> 0.9.0)
   google-cloud-firestore (~> 2.0)
   nokogiri (~> 1.11.4)
+  sinatra (~> 2.0)
 
 RUBY VERSION
    ruby 2.6.10p210
