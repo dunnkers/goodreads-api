@@ -19,13 +19,9 @@ $client = Goodreads::Client.new(api_key: GOODREADS_API_KEY)
 
 def grabBookCover(bookLink)
     doc = Nokogiri::HTML(open(bookLink))
-    coverButton = doc.css('.coverButtonContainer .coverButton.enlargeCover')[0]
-    
-    if coverButton # has cover
-        imageSelector = "##{coverButton["id"]}_cover > img"
-        image = doc.css(imageSelector)[0]
-        return image;
-    end
+    imageSelector = "#BookCard__cover > BookCover__image > div > img"
+    image = doc.css(imageSelector)[0]
+    return image;
 end
 
 def fixBookCover(book)
