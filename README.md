@@ -77,7 +77,9 @@ Set `launch.json` to execute `app.rb` to debug the server, or `fetch-shelves.rb`
 
 You can deploy easily on any platform desired - just setup a Ruby environment and make sure a Redis instance is running in the network. Its connection parameters are at default. Also make sure to set the environment variables. Feel free to build a Dockerfile with the required setup.
 
-Out of the box, however, Heroku deployment works well. Just launch an app with the heroku/ruby buildpack, and install the Heroku Redis add-on. You can use Heroku Scheduler to periodically fetch new data; configure the job to execute `rake fetch`. Cheers!
+~Out of the box, however, Heroku deployment works well. Just launch an app with the heroku/ruby buildpack, and install the Heroku Redis add-on. You can use Heroku Scheduler to periodically fetch new data; configure the job to execute `rake fetch`. Cheers!~
+
+Host on Google Cloud Platform by using the `cloudbuild.yaml` provided.
 
 ## About
 
